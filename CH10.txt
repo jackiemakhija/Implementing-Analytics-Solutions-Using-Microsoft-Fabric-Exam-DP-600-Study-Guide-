@@ -1,0 +1,63 @@
+//Basic Summary Statistics Using Pandas:
+import pandas as pd
+
+data = pd.read_csv('dataset.csv')
+print(data.describe())
+
+
+//Checking Data Types and Summarizing Data with Pandas:
+print(data.dtypes)
+print(data.describe())
+
+
+//Creating a Histogram in Python:
+import matplotlib.pyplot as plt
+
+data['age'].hist()
+plt.show()
+
+
+
+//Connecting to SQL Database in Power BI:
+let 
+    Source = Sql.Database("server_name", "database_name"),
+    SalesData = Source{[Schema="dbo",Item="Sales"]}[Data]
+in 
+    SalesData
+
+
+
+//Detecting Anomalies with Boxplot in Python:
+import seaborn as sns
+sns.boxplot(data['sales'])
+
+
+
+//Implementing K-means Clustering in Python:
+from sklearn.cluster import KMeans
+
+model = KMeans(n_clusters=3)
+model.fit(data[['feature1', 'feature2']])
+
+
+
+//Running a Spark Job in Synapse for Large Dataset:
+df = spark.read.csv('/mnt/data/large_dataset.csv')
+df.show()
+
+
+
+//Using Dataflows in Power BI to Merge Data Sources:
+let 
+    Source1 = Csv.Document(File.Contents("source1.csv")),
+    Source2 = Sql.Database("server_name", "db_name")
+in 
+    Table.Combine({Source1, Source2})
+
+
+
+
+//Performing a Left Outer Join in SQL:
+SELECT * 
+FROM customers c 
+LEFT JOIN sales s ON c.customer_id = s.customer_id;

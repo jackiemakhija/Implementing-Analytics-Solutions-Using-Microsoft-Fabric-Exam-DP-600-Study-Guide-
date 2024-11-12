@@ -1,0 +1,54 @@
+//SQL Script for Data Partitioning in Microsoft Fabric:
+CREATE TABLE SalesData (
+    SaleID int,
+    SaleDate datetime,
+    TotalAmount decimal
+)
+PARTITION BY RANGE (SaleDate) (
+    PARTITION p1 VALUES LESS THAN ('2022-01-01'),
+    PARTITION p2 VALUES LESS THAN ('2023-01-01'),
+    PARTITION p3 VALUES LESS THAN ('2024-01-01')
+);
+
+SELECT SaleID, TotalAmount
+FROM SalesData
+WHERE SaleDate BETWEEN '2022-05-01' AND '2022-12-31';
+Enabling Azure Monitor for Microsoft Fabric Resources:
+
+
+//Enable monitoring for a specific resource
+az monitor diagnostic-settings create --name "DiagnosticSetting" --resource <resource_id> --logs '[{"category": "AuditLogs", "enabled": true}]' --metrics '[{"category": "AllMetrics", "enabled": true}]'
+Creating a Log Analytics Workspace in Azure:
+
+
+//Create a Log Analytics workspace
+az monitor log-analytics workspace create --resource-group <resource_group> --workspace-name <workspace_name>
+KQL Query for Tracking Query Performance:
+
+
+//KQL Query for Tracking Query Performance:
+Perf
+| where ObjectName == "Processor" and CounterName == "% Processor Time"
+| summarize avg(CounterValue) by bin(TimeGenerated, 5m)
+| render timechart
+Creating an Index on CustomerID for Optimization:
+
+
+//Creating an Index on CustomerID for Optimization:
+CREATE INDEX idx_CustomerID
+ON SalesData(CustomerID);
+
+SELECT CustomerID, TotalAmount
+FROM SalesData
+WHERE CustomerID = 12345;
+
+
+//Viewing and Analyzing a Query Execution Plan in Microsoft Fabric:
+SET STATISTICS PROFILE ON;
+SELECT * FROM SalesData WHERE SaleDate > '2022-01-01';
+SET STATISTICS PROFILE OFF;
+Creating a Columnstore Index for Optimized Storage and Retrieval:
+
+
+//Creating a Columnstore Index for Optimized Storage and Retrieval:
+CREATE CLUSTERED COLUMNSTORE INDEX IDX_SalesData ON SalesData;
